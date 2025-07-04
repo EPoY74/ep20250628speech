@@ -7,6 +7,11 @@ import playsound
 import pygame
 from gtts import gTTS
 
+# TODO Сделать кроссплатформанный интерфейс (для телефонов больше)
+# TODO Добавить комментарии
+# TODO Обработать ошибки все полностью
+# TODO Покрыть тестами (по возможности)
+
 
 def play_mp3(file_path: str):
     try:
@@ -116,7 +121,7 @@ def output_elapsed_time(
     duration: int, playback_interval: int, seconds_counter: int
 ):
     if seconds_counter <= 1:
-        voice_message: str = "Привет Матвей! Сеанс массажа начат."
+        voice_message: str = f"Привет {clients_name}! Сеанс массажа начат."
         queue_voice_message.put(voice_message)
         time.sleep(1)
 
@@ -124,14 +129,16 @@ def output_elapsed_time(
         elapsed_seconds: int = duration - seconds_counter
         elapsed_minutes: int = elapsed_seconds // 60
         voice_message: str = (
-            f"Матвей! Осталось {str(int(elapsed_minutes))}"
+            f"{clients_name}! Осталось {str(int(elapsed_minutes))}"
             f" {pluralize_ru(elapsed_minutes)}"
         )
         queue_voice_message.put(voice_message)
         time.sleep(1)
 
     if seconds_counter == (duration - 5):
-        voice_message: str = "Сеанс массажа окончен, Матвей - ты супер!"
+        voice_message: str = (
+            f"Сеанс массажа окончен, {clients_name} - ты супер!"
+        )
         queue_voice_message.put(voice_message)
         time.sleep(1)
 
@@ -152,6 +159,7 @@ def pluralize_ru(number: int) -> str:
 if __name__ == "__main__":
     duration_munutes: int = 45
     elapse_playback_interval_minutes: int = 5
+    clients_name: str = "Милена"
     queue_voice_message: Queue = Queue()
     duration_seconds: int = (
         duration_munutes * 60
