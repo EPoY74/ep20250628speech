@@ -151,7 +151,7 @@ def pluralize_ru(number: int) -> str:
 
 if __name__ == "__main__":
     duration_munutes: int = 45
-    elapse_playback_interval_minutes: int = 1
+    elapse_playback_interval_minutes: int = 5
     queue_voice_message: Queue = Queue()
     duration_seconds: int = (
         duration_munutes * 60
